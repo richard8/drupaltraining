@@ -1,4 +1,4 @@
-uuid: a2b9891b-3bf1-49d5-b3ad-defd2058b1f7
+uuid: cb0ab0c3-7935-449e-922b-700099299f01
 langcode: en
 status: true
 dependencies: {  }
@@ -7,7 +7,7 @@ _core:
 id: feedback
 label: 'Website feedback'
 recipients:
-  - admin@example.com
+  - jack.garratt@debugacademy.com
 reply: ''
 weight: 0
 message: 'Your message has been sent.'
