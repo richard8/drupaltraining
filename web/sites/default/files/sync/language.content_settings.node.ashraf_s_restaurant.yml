@@ -1,0 +1,11 @@
+uuid: 975eca79-eea6-4dcb-9699-b8ac827f8fb7
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.ashraf_s_restaurant
+id: node.ashraf_s_restaurant
+target_entity_type_id: node
+target_bundle: ashraf_s_restaurant
+default_langcode: site_default
+language_alterable: false
