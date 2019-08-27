@@ -1,0 +1,29 @@
+uuid: 933657de-5e2c-4401-bf0d-e8fd872d48fb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.ashraf_s_restaurant.body
+    - node.type.ashraf_s_restaurant
+  module:
+    - text
+    - user
+id: node.ashraf_s_restaurant.default
+targetEntityType: node
+bundle: ashraf_s_restaurant
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  langcode: true

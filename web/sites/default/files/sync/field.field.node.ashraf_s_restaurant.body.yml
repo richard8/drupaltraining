@@ -1,0 +1,22 @@
+uuid: 669cb966-be57-4aff-b3e8-9d772456d9ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.ashraf_s_restaurant
+  module:
+    - text
+id: node.ashraf_s_restaurant.body
+field_name: body
+entity_type: node
+bundle: ashraf_s_restaurant
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

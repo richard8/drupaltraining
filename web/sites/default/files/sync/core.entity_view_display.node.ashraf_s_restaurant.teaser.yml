@@ -1,0 +1,31 @@
+uuid: 4b5150fc-bea3-4ecf-a468-ede65b2a4a2d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.ashraf_s_restaurant.body
+    - node.type.ashraf_s_restaurant
+  module:
+    - text
+    - user
+id: node.ashraf_s_restaurant.teaser
+targetEntityType: node
+bundle: ashraf_s_restaurant
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  langcode: true
