@@ -1,0 +1,14 @@
+auto_tag.settings:
+  path: '/admin/config/content/autotag'
+  defaults:
+    _title: 'Taxonomy Auto Tag Settings'
+    _form: '\Drupal\auto_tag\Form\AutotagSettingsForm'
+  requirements:
+    _permission: 'configure autotag settings'
+auto_tag.bulk_tag:
+  path: '/admin/config/content/autotag/bulk'
+  defaults:
+    _title: 'Bulk tag content'
+    _form: '\Drupal\auto_tag\Form\BulkAutoTagForm'
+  requirements:
+    _permission: 'configure autotag settings'

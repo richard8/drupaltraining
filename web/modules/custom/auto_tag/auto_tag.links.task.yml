@@ -1,0 +1,10 @@
+auto_tag.settings:
+  route_name: auto_tag.settings
+  base_route: auto_tag.settings
+  title: 'Settings'
+  weight: 1
+auto_tag.bulk_tag:
+  route_name: auto_tag.bulk_tag
+  base_route: auto_tag.settings
+  title: 'Bulk update'
+  weight: 2
