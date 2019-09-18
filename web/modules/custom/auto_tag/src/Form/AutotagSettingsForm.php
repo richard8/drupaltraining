@@ -17,7 +17,7 @@ class AutotagSettingsForm extends \Drupal\Core\Form\ConfigFormBase {
   }
 
   // And apply the __construct method as you normally would for DI
-  public function __construct(EntityFieldManagerInterface $entityFieldManager) {
+  public function __construct(EntityFieldManagerInterface $entity_field_manager) {
     $this->entityFieldManager = $entity_field_manager;
   }
 
@@ -32,6 +32,26 @@ class AutotagSettingsForm extends \Drupal\Core\Form\ConfigFormBase {
   }
 
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $form['taggable_fields'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Enable auto-tagger(s) for specific field(s).'),
+    ];
+
+    $form['taggable_fields']['autotag-bundles'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Configure tagger behavior'),
+      '#description' => $this->t('How should terms get mapped to each field?'),
+      '#open' => TRUE,
+      '#prefix' => '<div id="autotag-bundles">',
+      '#suffix' => '</div>',
+      '#weight' => 50
+    ];
+
+    self::buildFormDetail($form, $form_state);
+    return parent::buildForm($form, $form_state);
+  }
+
+  public function buildFormDetail(&$form, FormStateInterface $form_state) {
     $userSubmittedValues = $form_state->getUserInput();
 
     $config = $this->config('auto_tag.settings');
@@ -51,21 +71,6 @@ class AutotagSettingsForm extends \Drupal\Core\Form\ConfigFormBase {
         }
       } 
     }
-
-    $form['taggable_fields'] = [
-      '#type' => 'fieldset',
-      '#title' => $this->t('Enable auto-tagger(s) for specific field(s).'),
-    ];
-
-    $form['taggable_fields']['autotag-bundles'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Configure tagger behavior'),
-      '#description' => $this->t('How should terms get mapped to each field?'),
-      '#open' => TRUE,
-      '#prefix' => '<div id="autotag-bundles">',
-      '#suffix' => '</div>',
-      '#weight' => 50
-    ];
 
     foreach ($taxonomy_fields as $entity_type => $taggable_fields) {
       $keyed_taggable_fields = array_keys($taggable_fields);
@@ -118,8 +123,6 @@ class AutotagSettingsForm extends \Drupal\Core\Form\ConfigFormBase {
         }
       }
     }
-
-    return parent::buildForm($form, $form_state);
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
