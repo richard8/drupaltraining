@@ -4,9 +4,6 @@ namespace Drupal\auto_tag\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Database\Connection;
-use Drupal\auto_tag\AutoTagger;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class BulkAutoTagForm extends FormBase {
   public function getFormId() {

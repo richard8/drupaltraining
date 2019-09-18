@@ -4,22 +4,11 @@ namespace Drupal\auto_tag\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\auto_tag\AutoTagger;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Entity\EntityFieldManagerInterface;
 
 class AutotagSettingsForm extends \Drupal\Core\Form\ConfigFormBase {
   protected $entityFieldManager;
 
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('entity_field.manager')
-    );
-  }
 
-  // And apply the __construct method as you normally would for DI
-  public function __construct(EntityFieldManagerInterface $entity_field_manager) {
-    $this->entityFieldManager = $entity_field_manager;
-  }
 
   public function getFormId() {
     return 'autotag_settings';
@@ -34,7 +23,7 @@ class AutotagSettingsForm extends \Drupal\Core\Form\ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     // Your code goes here.
     
-    self::buildFormDetail($form, $form_state);
+//    self::buildFormDetail($form, $form_state);
     return parent::buildForm($form, $form_state);
   }
 
