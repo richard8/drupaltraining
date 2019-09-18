@@ -1,0 +1,4 @@
+services:
+  simple_auto_tag:
+    class: Drupal\auto_tag\AutoTagger
+    arguments: ['@logger.factory', '@database']
