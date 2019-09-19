@@ -123,10 +123,13 @@ class AutoTagger {
     foreach ($this->entity->getFields() as $fields) {
       if ($fields instanceof ItemList) {
         // If this is a text field (uses an editor).
-        if (in_array($fields->getFieldDefinition()->getType(), [
+        $field_type = $fields->getFieldDefinition()->getType();
+        if (in_array($field_type, [
           'text',
           'text_long',
           'text_with_summary',
+          'string',
+          'string_long',
         ])) {
           foreach ($fields as $field) {
             $fieldValue = $field->getValue();
