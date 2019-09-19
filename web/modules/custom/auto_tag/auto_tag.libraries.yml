@@ -1,0 +1,4 @@
+my_react_app:
+  version: VERSION
+  js:
+    js/my_react_app.js: {}
