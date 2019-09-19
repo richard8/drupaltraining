@@ -2,11 +2,37 @@
 
 namespace Drupal\auto_tag;
 
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\TypedData\Plugin\DataType\ItemList;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 class AutoTagger {
+  protected $entity;
+  protected $configValues;
+  protected $logger;
+  protected $database;
+  protected $entityTypeManager;
+  protected $taggableFields;
 
   const AUTOTAG_DISABLED = 'never';
+
+  public function __construct(LoggerChannelFactoryInterface $logger, Connection $database, EntityTypeManagerInterface $entity_type_manager) {
+    $this->logger = $logger->get('auto_tag');
+    $this->database = $database;
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  public function tagEntity(ContentEntityInterface $entity) {
+    $this->entity = $entity;
+    $this->configValues = \Drupal::config('auto_tag.settings')->get();
+    if (!$this->isEntityTaggable()) {
+      return FALSE;
+    }
+    $this->setTaggableFields();
+    $this->tagFields();
+  }
 
   protected function tagFields() {
     $matchingTerms = [];
@@ -31,9 +57,19 @@ class AutoTagger {
     $taggingTechnique = $this->taggableFields[$fieldName];
     switch ($taggingTechnique) {
       case 'skip':
+        if (!$this->entity->get($fieldName)->isEmpty()) {
+          break;
+        }
       case 'replace':
+        $this->entity->set($fieldName, $matchingTerms);
+        break;
       case 'supplement':
       default:
+        $originalTerms = $this->entity->get($fieldName)->getValue();
+        foreach ($originalTerms as $term) {
+          $matchingTerms[$term['target_id']] = $term['target_id'];
+        }
+        $this->entity->set($fieldName, $matchingTerms);
         break;
     }
   }
@@ -43,7 +79,12 @@ class AutoTagger {
     $vocabConfigKey = "type_fields_{$entityTypeId}-{$fieldName}";
     $applicableVocabs = $this->configValues[$vocabConfigKey];
     $applicableTerms = [];
-    // @TODO: Get array of terms in vocab
+    foreach ($applicableVocabs as $vocab) {
+      $termsInVocab = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree($vocab);
+      foreach ($termsInVocab as $term) {
+        $applicableTerms[$term->tid] = $term->name;
+      }
+    }
     return $applicableTerms;
   }
 
@@ -53,10 +94,29 @@ class AutoTagger {
     // For items whose config value is NOT AUTOTAG_DISABLED:
       // Create an array of Field name => Corresponding config value
       // Store that array as $this->taggableFields
+    $taggableFields = [];
+    $entityTypeId = $this->entity->getEntityTypeId();
+    $fieldKeyPrefix = "technique_fields_" . $entityTypeId . "-";
+    foreach ($this->configValues as $key => $value) {
+      if (substr($key, 0, strlen($fieldKeyPrefix)) == $fieldKeyPrefix) {
+        $fieldName = substr($key, strlen($fieldKeyPrefix));
+        if ($value !== self::AUTOTAG_DISABLED) {
+
+          if ($this->entity->hasField($fieldName)) {
+
+            $taggableFields[$fieldName] = $value;
+          }
+        }
+      }       
+    }
+
+    $this->taggableFields = $taggableFields;
   }
   
   protected function isEntityTaggable() {
     // Return whether the config value type-$entityTypeId is equal to 1
+    $entityTypeId = $this->entity->getEntityTypeId();
+    return ($this->configValues["type-$entityTypeId"] == 1) ? TRUE : FALSE;
   }
 
   protected function findTermsInTextFields($termName) {

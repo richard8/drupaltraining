@@ -2,9 +2,12 @@
 
 
 // [x] When an entity is saved
-
+/**
+ * Implements hook_entity_presave.
+ */
 function auto_tag_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
   \Drupal::logger('auto_tag')->info('Tag the content');
+
   // Tag the content
   if ($entity instanceof \Drupal\Core\Entity\ContentEntityInterface) {
     \Drupal::service('simple_auto_tag')->tagEntity($entity);

@@ -4,11 +4,21 @@ namespace Drupal\auto_tag\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\auto_tag\AutoTagger;
+use Drupal\Core\Entity\EntityFieldManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class AutotagSettingsForm extends \Drupal\Core\Form\ConfigFormBase {
   protected $entityFieldManager;
 
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity_field.manager')
+    );
+  }
 
+  public function __construct(EntityFieldManagerInterface $entity_field_manager) {
+    $this->entityFieldManager = $entity_field_manager;
+  }
 
   public function getFormId() {
     return 'autotag_settings';
@@ -22,12 +32,26 @@ class AutotagSettingsForm extends \Drupal\Core\Form\ConfigFormBase {
 
   public function buildForm(array $form, FormStateInterface $form_state) {
     // Your code goes here.
-    
-//    self::buildFormDetail($form, $form_state);
+    $form['taggable_fields'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Enable auto-tagger(s) for specific field(s).')
+    ];
+
+    $form['taggable_fields']['autotag-bundles'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Configure tagger behavior'),
+      '#description' => $this->t('How should terms get mapped?'),
+      '#open' => TRUE,
+      '#prefix' => '<div id="autotag-bundles">',
+      '#suffix' => '</div>',
+      '#weight' => 50
+    ];
+
+    self::buildFormDetail($form, $form_state);
     return parent::buildForm($form, $form_state);
   }
 
-  public function buildFormDetail($form, FormStateInterface $form_state) {
+  public function buildFormDetail(&$form, FormStateInterface $form_state) {
     $userSubmittedValues = $form_state->getUserInput();
 
     $config = $this->config('auto_tag.settings');
@@ -38,12 +62,12 @@ class AutotagSettingsForm extends \Drupal\Core\Form\ConfigFormBase {
     foreach ($referenceFields as $entity_type => $field) {
       foreach ($field as $field_name => $field_info) {
         foreach ($field_info['bundles'] as $bundle) {
-          $bundle_fields = \Drupal::getContainer()->get('entity_field.manager')->getFieldDefinitions($entity_type, $bundle);
+          $bundle_fields = $this->entityFieldManager->getFieldDefinitions($entity_type, $bundle);
           $field_definition = $bundle_fields[$field_name];
           $field_settings = $field_definition->getSettings();
           if (!empty($field_settings['target_type']) && $field_settings['target_type'] == 'taxonomy_term') {
             $taxonomy_fields[$entity_type][$field_name] = $field_settings['handler_settings']['target_bundles'];
-          }                
+          }
         }
       } 
     }
@@ -57,10 +81,10 @@ class AutotagSettingsForm extends \Drupal\Core\Form\ConfigFormBase {
         '#title' => $entity_type,
         '#default_value' => $default_val,
         '#ajax' => [
-        'callback' => '::ajaxReplaceBundleForm',
-          'wrapper' => 'autotag-bundles',
-          'method' => 'replace',
-        ],
+          'callback' => '::ajaxReplaceBundleForm',
+            'wrapper' => 'autotag-bundles',
+            'method' => 'replace',
+          ],
       ];
     }
 
