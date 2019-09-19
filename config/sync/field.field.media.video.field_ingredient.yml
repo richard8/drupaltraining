@@ -1,0 +1,29 @@
+uuid: 026177ab-5cfd-48f4-ab0d-ceb52a25ba8d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_ingredient
+    - media.type.video
+    - taxonomy.vocabulary.recipe_category
+id: media.video.field_ingredient
+field_name: field_ingredient
+entity_type: media
+bundle: video
+label: Ingredient
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      recipe_category: recipe_category
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

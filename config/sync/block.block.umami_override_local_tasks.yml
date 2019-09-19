@@ -1,0 +1,22 @@
+uuid: aa3e3160-c186-467f-b57b-1e4fd9e24c32
+langcode: en
+status: true
+dependencies:
+  theme:
+    - umami_override
+_core:
+  default_config_hash: D_u42KUsn2FJ3U01b1I7e0dyrCHEwk3KbFY1omR1i-s
+id: umami_override_local_tasks
+theme: umami_override
+region: sidebar_first
+weight: -7
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  provider: core
+  label_display: '0'
+  primary: true
+  secondary: true
+visibility: {  }

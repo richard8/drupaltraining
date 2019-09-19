@@ -1,0 +1,14 @@
+type_fields_node-field_recipe_category:
+  recipe_category: recipe_category
+technique_fields_node-field_recipe_category: supplement
+type_fields_node-field_tags:
+  tags: tags
+technique_fields_node-field_tags: supplement
+type-media: 0
+type-node: 1
+type-taxonomy_term: 0
+submit: 'Save configuration'
+form_build_id: form-_3t870RbkNsOmstlJWs5er8Gbgd1YpdFe6xg9-N7QFk
+form_token: gHg9sR5MyfI4XXK0sjIw8fVEGvTmcQ7fWplNBtgcUuE
+form_id: autotag_settings
+op: 'Save configuration'

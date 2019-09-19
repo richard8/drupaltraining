@@ -1,0 +1,22 @@
+uuid: 1bde7929-d651-47da-b854-7e54a69b31ec
+langcode: en
+status: true
+dependencies:
+  module:
+    - language
+  theme:
+    - bootstrap_barrio
+_core:
+  default_config_hash: DqYisvDJbN_j5fWBCF6RVDYi5ZV62Yy8DABdtvRigME
+id: bootstrap_barrio_languageswitcher
+theme: bootstrap_barrio
+region: top_header
+weight: 0
+provider: null
+plugin: 'language_block:language_interface'
+settings:
+  id: 'language_block:language_interface'
+  label: 'Language switcher'
+  provider: language
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,25 @@
+uuid: d05cda5b-e340-44c8-a526-862c17a2cede
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - umami_override
+_core:
+  default_config_hash: H_xCtuk8g3J4QCM1UczF4tgPFZsKR0-0CVhonm9C0Gw
+id: umami_override_branding
+theme: umami_override
+region: header
+weight: -7
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  provider: system
+  label_display: '0'
+  use_site_logo: true
+  use_site_name: false
+  use_site_slogan: true
+visibility: {  }

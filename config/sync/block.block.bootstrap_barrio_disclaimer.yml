@@ -1,0 +1,30 @@
+uuid: 10b04b7f-3bc3-4617-9b81-c9be532ee2ca
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:disclaimer_block:9b4dcd67-99f3-48d0-93c9-2c46648b29de'
+  enforced:
+    module:
+      - demo_umami_content
+  module:
+    - block_content
+  theme:
+    - bootstrap_barrio
+_core:
+  default_config_hash: TeOIzk3V4EhipVpBRgjtyn1BkWloX9v1gYju2zgBx80
+id: bootstrap_barrio_disclaimer
+theme: bootstrap_barrio
+region: top_header
+weight: 10
+provider: null
+plugin: 'block_content:9b4dcd67-99f3-48d0-93c9-2c46648b29de'
+settings:
+  id: 'block_content:9b4dcd67-99f3-48d0-93c9-2c46648b29de'
+  label: 'Umami disclaimer'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

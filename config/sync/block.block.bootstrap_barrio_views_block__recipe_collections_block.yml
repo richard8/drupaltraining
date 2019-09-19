@@ -1,0 +1,26 @@
+uuid: e7513963-5409-4ebe-b0f0-4b6bfc5221c9
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.recipe_collections
+  module:
+    - views
+  theme:
+    - bootstrap_barrio
+_core:
+  default_config_hash: E0HLSvcSJo84yye98a8UbxEugNebWa1XQAmUxBSXuus
+id: bootstrap_barrio_views_block__recipe_collections_block
+theme: bootstrap_barrio
+region: top_header
+weight: 0
+provider: null
+plugin: 'views_block:recipe_collections-block'
+settings:
+  id: 'views_block:recipe_collections-block'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility: {  }
