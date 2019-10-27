@@ -1,0 +1,17 @@
+uuid = b601111d-f869-11e9-9075-0242ac120007
+name = 
+tool_name = mariabackup
+tool_command = --backup --target-dir=/mnt/ddev_config/db_snapshots/drupaltraining_20191026232711 --user root --password=... root --socket=/var/tmp/mysql.sock
+tool_version = 10.2.25-MariaDB
+ibbackup_version = 10.2.25-MariaDB
+server_version = 10.2.25-MariaDB-1:10.2.25+maria~bionic-log
+start_time = 2019-10-27 03:27:13
+end_time = 2019-10-27 03:27:17
+lock_time = 0
+binlog_pos = filename 'mysql-bin.000007', position '46018745', GTID of the last change '0-1-99785'
+innodb_from_lsn = 0
+innodb_to_lsn = 649540704
+partial = N
+incremental = N
+format = file
+compressed = N
